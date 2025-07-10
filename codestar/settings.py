@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-z-vy35@rzzzr@_69p6f$_-#gsl8g!zbh(9z+)!1sc09c&s!_3r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -86,7 +86,10 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 #}
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL")) if os.environ.get("DATABASE_URL") else {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation
