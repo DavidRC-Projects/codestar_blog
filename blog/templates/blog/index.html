@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeStar Blog</title>
+</head>
+<body>
+    <header>
+        <h1>CodeStar Blog</h1>
+    </header>
+    
+    <main>
+        {% if post_list %}
+            {% for post in post_list %}
+                <article>
+                    <h2>{{ post.title }}</h2>
+                    <p><strong>Author:</strong> {{ post.author }}</p>
+                    <p><strong>Created:</strong> {{ post.created_on }}</p>
+                    <p>{{ post.excerpt|default:post.content|truncatewords:50 }}</p>
+                    <hr>
+                </article>
+            {% endfor %}
+            
+            {% if is_paginated %}
+                <nav>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    {% endif %}
+                    
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
+        {% else %}
+            <p>No posts available.</p>
+        {% endif %}
+    </main>
+</body>
+</html> 

@@ -15,15 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.shortcuts import redirect
-from blog import views as blog_views
-
-def redirect_to_blog(request):
-    return redirect('blog')
+from django.urls import path, include
 
 urlpatterns = [
-    path('', redirect_to_blog, name='home'),
     path('admin/', admin.site.urls),
-    path('blog/', blog_views.my_blog, name="blog"), # the app urls are loaded as the main urls
+    path("", include("blog.urls"), name="blog-urls"),
 ]
